@@ -1,0 +1,72 @@
+ ################# What is Git Branching?##################
+Think of Git branching like having different parallel timelines or workspaces in your code.
+Imagine you’re writing a book:
+The main branch (called main or master) is your published version.
+But now, you want to write a new chapter, fix a typo, or experiment with a new ending — without changing the published version.
+You create a branch — like a copy — and make your changes there.
+Once you're happy, you can merge it back into the main story.
+
+long lived branches --> main/master, develop
+short lived branches --> feature, hotfix, release
+
+✅ Why Use Git Branching?
+Experiment Safely: Try new features or fixes without breaking the main project.
+Collaboration: Multiple developers can work on different things at the same time.
+Organized Workflow: Clear separation between development, testing, and production.
+
+There are different types of Branching models :
+
+#Branching Model	           #Best For	
+Feature Branch	         Solo devs & small teams	
+Git Flow	             Enterprise, long-lived apps	
+GitHub Flow	             Modern CI/CD, fast deploy	
+Trunk-Based Dev	         High velocity teams with automation  
+
+1. Feature Branch Workflow (Simple & popular)
+     Each feature or bug fix is done in a separate branch.
+     Merged into main or develop when done.
+    
+Example : 
+    main
+  |
+  o---o---o---------o       (main)
+           \       /
+            o---o           (feature/login)
+
+2. Git Flow (Good for teams and release management)
+Branches:
+main: Production code
+develop: Active development
+feature/*: Features (branch off develop)
+release/*: Pre-release testing
+hotfix/*: Quick bug fixes on production
+
+Example :
+ main
+  |
+  o----o-------------------o----o      ← Releases & hotfixes
+        \                 /    /
+         o--o--o--o--o--o     /         ← release/1.1 & hotfix/1.1.1
+             \        /     /
+              o--o--o      /            ← develop
+                 \       /
+                o--o--o              ← feature/ratings, etc.
+
+|| Branch      | From      | Used For                      |
+| ----------- | --------- | ----------------------------- |
+| `main`      | —         | Production releases           |
+| `develop`   | `main`    | Integrating all features      |
+| `feature/*` | `develop` | New feature development       |
+| `release/*` | `develop` | Final pre-release testing     |
+| `hotfix/*`  | `main`    | Critical fixes for production |
+
+3. GitHub Flow (Simpler, used in modern CI/CD)
+Only main branch is used.
+Create a feature branch → open a Pull Request → review & merge → deploy.
+
+Example :
+main
+  |
+  o---o---------o     ← production code
+       \       /
+        o---o-o       ← feature branch
