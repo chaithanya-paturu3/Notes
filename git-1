@@ -1,0 +1,114 @@
+Git is a version control system used to:
+
+Track changes in your code
+Go back to previous versions
+Work with others (collaboration)
+Avoid losing your work
+################ most common GIT commands ################
+
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --list
+git init
+git clone <repository-url>
+git status
+git add <file>
+git add .
+git commit -m "message"
+git commit -am "message"
+git log
+git log --oneline
+git diff
+git diff --staged
+git branch
+git branch <branch>
+git checkout <branch>
+git checkout -b <branch>
+git merge <branch>
+git remote -v
+git push origin <branch>
+git pull origin <branch>
+git fetch
+git restore <file>
+git reset <file>
+git reset --hard
+git revert <commit>
+
+############ process of Git repo ###########
+create repo
+clone the repo
+adding the file to staging area
+commit the changes to local repo
+push the changes to central repo
+git pull
+
+git init
+git remote add origin <url>
+
+main --> production
+
+################branching strategy###########
+create another branch from main branch
+do the changes
+do the deployment
+do the testing
+do the scanning
+
+if everything is good, then deploy it into QA ENV, UAT, PRE-PROD, PROD
+
+we need to get the changes from another branch into main branch
+
+merging, rebase, PR, squash, reset, revert, cherry pick, etc...
+
+PR --> Pull Request
+
+branch create ---> git checkout -b <bew-branch-name>
+
+Merge
+------
+-> you can do merge to get the changes from feature branch into main branch
+-> merge always creates extra commit called merge commit. it will have 2 parents
+-> merge preserves the history
+-> merge is safe since it prevents the history, you can use merge when multiple people working on the same branch
+
+Rebase
+------
+-> There will be no extra commit created
+-> rebase will not preserve history, it maintains linear history
+-> rebase rewrites the history(change in commit id) as if it is originated from main branch
+-> we can use rebase when a single person works on one branch
+
+############ Why you get conflicts, how do you resolve?########
+Git conflicts happen during operations like:
+git pull (when merging remote changes into your local branch)
+git merge
+git rebase
+git cherry-pick
+You get a conflict when Git can’t automatically figure out how to combine changes made in different versions of a file.
+
+Example:
+
+You and someone else both edit the same lines in a file:
+You change line 10 of index.js locally.
+Someone else also changed line 10 and pushed it to origin/main.
+When you git pull, Git doesn’t know which version to keep.
+
+############## How to Resolve Conflicts#####
+<<<<<<< HEAD
+Your changes
+=======
+Their changes (from remote)
+>>>>>>> origin/main
+
+ Manually edit the file
+Decide which part to keep:
+Yours?
+Theirs?
+Then remove the conflict markers (<<<<<<<, =======, >>>>>>>).
+
+Tips to Avoid Conflicts :
+
+Pull frequently (git pull) to stay updated.
+Communicate with your team.
+Avoid editing the same files/lines as others when possible.
+Use feature branches to isolate work.
