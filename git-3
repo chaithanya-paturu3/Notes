@@ -1,0 +1,39 @@
+🔁 1. git rebase – "Rewrite history to make it clean"
+Definition:
+git rebase moves or reapplies your commits on top of another branch. It changes the commit history to make it look like you developed everything in a straight line.
+
+Use it when:
+You want to make your commit history neat before merging your work into a main branch.
+
+Example : git rebase main
+
+🔄 2. git revert – "Undo a past commit by doing the opposite"
+Definition:
+git revert creates a new commit that undoes the changes from a specific previous commit — without deleting any history.
+
+Use it when:
+You made a mistake and want to undo it safely, especially in shared/public branches
+
+Example : git revert abc1234
+
+🔙 3. git restore – "Discard or bring back file changes"
+Definition:
+git restore is used to discard changes in your working directory or unstage files. It only affects files, not commit history.
+
+Use it when:
+You want to get rid of changes you haven't committed yet, or undo an accidental staging.
+
+Example : git restore file.txt         # Discards changes in file.txt
+git restore --staged file.txt  # Unstages the file
+
+🔁 4. git reset – "Move back to an earlier point"
+Definition:
+git reset moves your branch's HEAD to an earlier commit. Depending on the mode, it can also unstage files or delete changes from your working directory.
+
+Use it when:
+You want to undo recent commits, either partially (keep changes) or completely (remove everything).
+
+Example : git reset --soft HEAD~1     # Undo last commit, keep changes staged
+git reset --mixed HEAD~1    # Undo last commit, keep changes in working dir
+git reset --hard HEAD~1     # Undo last commit and delete changes (dangerous!)
+
