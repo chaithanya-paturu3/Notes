@@ -1,0 +1,212 @@
+Conversation opened. 1 read message.
+
+Skip to content
+Using Gmail with screen readers
+16 of 36,012
+(no subject)
+Inbox
+
+chaithanya paturu <paturuchaithanya33@gmail.com>
+Attachments
+Wed, Jul 16, 6:17 PM (2 days ago)
+to me
+
+
+ 11 Attachments
+  •  Scanned by Gmail
+                                  Linux ------------------------------------------
+
+To connect server via CLI --> ssh -i pemkeypath user@ip adress                  
+
+$ --> denotes normal user
+sudo su --> root access
+\# --> denotes admin/root user
+
+/home/<user-name>
+
+/root --> root user home folder
+sudo su - --> lands into root user home folder /root
+
+- --> we can give single char
+-- --> we need to give word
+
+/ --> root of the server
+
+ls --> list subdirectories
+
+ls -l --> long listing format with more details
+ls -lr --> reverse alpha order
+ls -lt --> new files on top
+ls -ltr --> old files on top
+ls -ltrh --> human readable
+ls -la --> display all files including hidden files and folders
+drwx------ --> d means directory
+-rw-r--r-- --> - means file
+
+cat > devops.txt
+cat > DevSecOps.txt --> enter the text, once done Enter and press ctrl+d
+>> --> append, adds to the current text
+
+
+Some of the important linux commands for user management.
+
+	• ls - to list the Directoire's 
+	• pwd - present working director
+	• cd - navigation through directory
+	• mdkr- to create the directory 
+	• mv - move or remane the directory
+	• cp - copying the files in Linux 
+	• rm - remove the file or directory 
+	• touch- create empty files
+	• ln - create symbolic links 
+	• clear - clear the terminal display
+	• cat - display the files on the terminal 
+	• echo- print any text that follows the command
+	• head- list the number of lines from the top.
+	• ssh - secured shell command in Linux.
+	• kill - kill the active processes by the 
+	• wget- direct download files from the internet.
+	• passwd- create a update password for the existing users.
+	• apt list - this command helps to check what are the packages installed in your linux machine
+	• apt install- command to install the packages
+
+cp <source-file> <destination>  >> to copy the file
+Sudo mv <oldfolder name><new foldername>  to change the folder name 
+cd .. --> one step back
+
+rm -r devops --> recursively delete everything inside devops
+curl and wget
+wget <URL> -->  Downloads the file
+curl <URL> --> Shows the content on the screen
+curl <URL> -o <path> --> donwloads the file with name given
+/ --> seperator/delimiter/fragments
+piping
+grep <word-to-search> <file>
+| --> pipe
+cat <file-name> | grep <word-to-search>
+
+cut command
+=============
+echo "https://raw.githubusercontent.com/DAWS-82S/notes/refs/heads/main/session-02.md" | cut -d "/" -f9
+session-02.md
+
+awk command 
+=============
+echo "https://raw.githubusercontent.com/DAWS-82S/notes/refs/heads/main/session-02.md" | awk -F "/" '{print $NF}' ==> NF means to print for the last item
+
+echo "https://raw.githubusercontent.com/DAWS-82S/notes/refs/heads/main/session-02.md" | awk -F "/" '{print $1F}'
+
+
+How can we get all the  users in Linux Servers
+awk -F ":" '{print $1F}' passwd  = file name 
+
+find <which-location> -name "<file-name>"
+:
+find / -name "passwd" ==> file name
+ 
+                    VIM EDITOR :      ( Visually Improved Editor)
+
+vim editor
+user management
+
+Esc mode is default
+press : to enter into command mode
+
+command mode
+----------------
+	:q --> quit
+	:wq! --> write and quit
+	:q! --> force quit without changes
+	:/<word-to-find> --> search the word from top to bottom
+	:?<word-to-find> --> search the word from bottom to top
+	:noh --> no highlight
+	:set nu --> set line numbers in the file
+	:set nonu --> dont set line numbers
+	:28 d --> deleted 28th line
+	:3s/word-to-find/word-to-replace --> replaces first occurenece in that line (here 3s means the line number )
+	:3s/word-to-find/word-to-replace/g --> replaces all occureneces in that line
+	:%s/word-to-find/word-to-replace/g --> replaces all occureneces in file
+	:%d --> delete entire content
+	
+	
+	ESC Mode
+	---------------
+	u --> undo
+	yy --> copy the line
+	p --> paste
+	10p --> paste the lines 10 times
+	dd --> cut the line
+	gg --> takes to top
+	shift+g --> takes to bottom
+	
+	                 User management  
+	
+	create user, add user to any group
+	
+	useradd <user-name> --> creates user and group with same name
+	id <user-name> --> displays user information
+	/etc/passwd --> contains user information
+	/etc/group --> contains group information
+	in linux, a user must have only one primary group and atleast secondary group
+	
+	groupadd <group-name> --> creates group
+	
+	usermod -g devops ramesh --> adds ramesh to devops group
+	usermod -aG testing ramesh --> adds testing as secondary group to ramesh
+	
+	
+	CRUD -->  create , read, update, delete
+	
+	userdel <user-name> 
+	groupdel < group-name>
+	remove from project,now remove from company
+	remove him from devops group 
+	Userdel <username> -r   -- to remove user from the home directory
+	
+	Linux follows key based authentication by default
+	
+	/etc/ssh/sshd_config --> edit the SSH related configuration
+	/etc/ssh/sshd_config --> any mistakes in this file, we cant ssh into server
+	systemctl restart sshd  --> to restart the service
+	sshd -t --> check config is correct or not
+	
+	key based authentication --> ramesh should generate his public key and private key...
+	
+	
+	                                    Permissions
+	-----------------
+	R -> 4
+	W -> 2
+	X -> 1
+	
+	- 		rw- 					r-- 			r-- 	ec2-user ec2-user
+	file    <owner-who-created>     <group>			<others>
+	
+	ec2-user --> Owner --> Read and Write
+	ec2-user --> Group --> Only Read
+	Others --> Other than and owner and group --> Only read
+	
+	Who can change permissions of file or folder --> owners or root user
+	
+	owner/user --> u
+	group --> g
+	others --> o
+	
+	chmod o+w devsecops.txt
+	chmod o-r suresh.txt
+	
+	chmod ugo+rwx suresh.txt
+	
+	chmod 740 suresh.txt
+	chmod 777 suresh.txt
+	chmod 755 suresh.txt
+	
+	netstat -lntp : to check the ports in the server
+	
+	Nproc -->>> used to check Cpus
+	df -h----->usage 
+	top ------> (to seee entire server details) 
+
+
+Linux notes.txt
+Displaying Linux notes.txt.
