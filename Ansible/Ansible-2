@@ -1,0 +1,61 @@
+How to setup Passwordless Authentication
+
+Scenario------->>>>>
+I installed ansible in one of my ec2 server, I want to take control on other two servers from this ansible server . i want set password less authenticarion. Suggest me the steps to set the password less authentication using public key. Note, I have pem file on my local that I uesd to launch these three servers
+
+1. From your local machine, upload the .pem file to your Ansible server:
+scp -i /path/to/local/cloud.pem /path/to/local/cloud.pem ubuntu@<control_node_public_ip>:~/
+2. SSH into your control node:
+ssh -i /path/to/local/cloud.pem ubuntu@<control_node_public_ip>
+3. Run the key copy commands from the control node:
+ssh-copy-id -i ~/.ssh/id_rsa.pub -o IdentityFile=~/cloud.pem ubuntu@<server1_public_ip>
+ssh-copy-id -i ~/.ssh/id_rsa.pub -o IdentityFile=~/cloud.pem ubuntu@<server2_public_ip>
+4. Test:
+ssh ubuntu@<server1_public_ip>
+ssh ubuntu@<server2_public_ip>
+
+
+if you dont have the public and private keys . create them by following steps: 
+
+Generate an SSH key pair (if not already done)
+ssh-keygen -t rsa -b 4096
+Press Enter for all prompts (no passphrase).
+
+This creates:
+
+~/.ssh/id_rsa → private key
+
+~/.ssh/id_rsa.pub → public key
+
+You have to create an inventroy file in the ansible server because with out this, the control node cannot acess the desired manage nodes.
+
+What is an Ansible Inventory File?
+The Inventory File is a simple text file that tells Ansible which servers (hosts) you want to manage or automate.
+It lists the IP addresses or hostnames of all the remote machines.It can group machines by roles or environment (like web servers, database servers, etc.).
+It acts like a “directory” of your infrastructure for Ansible.
+
+Why do we use an Inventory File?
+To organize your hosts into groups (so you can run commands on a group, like “all web servers”).
+To specify the target machines on which Ansible runs tasks.
+To manage many servers easily by grouping them logically.
+To allow Ansible to connect to the right machines when you run commands or playbooks.
+
+Simple example:
+
+# Define groups and hosts
+
+[webservers]
+web1.example.com
+web2.example.com
+192.168.1.10
+
+[dbservers]
+db1.example.com
+192.168.1.20
+Here:
+[webservers] is a group name containing three hosts.
+[dbservers] is another group containing two hosts.
+
+when you run the command like this---->>>> ansible all -m ping
+it will show what are the manage nodes that connecte to your control node.
+Note: Make sure the security groups of your EC2 instances allow SSH access (port 22) from the Ansible server's IP address.
