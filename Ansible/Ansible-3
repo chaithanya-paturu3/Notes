@@ -1,0 +1,50 @@
+What are Ad-Hoc Commands in Ansible?
+Ad-Hoc commands are one-time commands you run directly from the command line using Ansible, without writing a playbook. They are used for quick, simple tasks on remote servers.
+
+Why do we use Ad-Hoc Commands?
+To quickly execute simple tasks on one or more remote machines.
+When you want to test or troubleshoot something without creating a full playbook.
+For routine operations like checking connectivity, copying files, installing packages, or managing services.
+To save time for small tasks that don't need automation scripts.
+
+How do Ad-Hoc Commands work?
+They use Ansible modules (pre-built tools inside Ansible) and run commands on target machines defined in your inventory file.
+
+Basic Syntax
+ansible <target> -m <module_name> -a "<module_arguments>"
+
+<target>: Group or hostname from your inventory (or all for all hosts)
+-m: The module to run (e.g., ping, shell, command, copy)
+-a: The arguments for the module
+
+| Module    | Purpose                           | Example Use                         |
+| --------- | --------------------------------- | ----------------------------------- |
+| ping      | Test connectivity                 | Check if servers are reachable      |
+| shell     | Run shell commands                | Run any shell command remotely      |
+| command   | Run commands (without shell)      | Run commands without shell features |
+| copy      | Copy files to remote machines     | Copy config files                   |
+| yum       | Install/remove packages on RPM OS | Install Apache on CentOS/RedHat     |
+| apt       | Install/remove packages on Debian | Install Nginx on Ubuntu/Debian      |
+| service   | Manage services (start/stop)      | Restart nginx service               |
+
+           --------------Real-Time Examples---------------------
+
+     1. Check Connectivity
+        ```
+        ansible all -m ping
+        ```
+
+     2. Install a Package
+        ```
+        ansible webservers -m yum -a "name=httpd state=present"
+        ```
+
+     3. Copy a File
+        ```
+        ansible webservers -m copy -a "src=/local/path dest=/remote/path"
+        ```
+
+     4. Restart a Service
+        ```
+        ansible webservers -m service -a "name=httpd state=restarted"
+        ```
